@@ -2,8 +2,6 @@
 ## Date written: Sep 10, 2024
 ## Learn country flag
 ## Youtube :  https://youtube.com/c/softwareNuggets
-## GitHub  :  https://github.com/softwareNuggets/Python_Shorts/tree/main/LearnCountryFlags
-
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -304,25 +302,26 @@ class QuizApp:
             self.show_buttons()
             self.update_score_board()
   
-
     def check_answer(self, selected_option):
         # First, reset all button colors to the default color
-        for button in [self.button1, self.button2, self.button3, self.button4]:
-            button.config(bg='SystemButtonFace')
+        self.button1.config(bg='SystemButtonFace')
+        self.button2.config(bg='SystemButtonFace')
+        self.button3.config(bg='SystemButtonFace')
+        self.button4.config(bg='SystemButtonFace')
 
-        # Get the correct button
-        correct_button = self.select_correct_button()
-        if correct_button is None:
+        # Determine which button is the correct one
+        
+        if 0 <= self.correct_answer < self.num_answers:
+            correct_button = [self.button1, self.button2, self.button3, self.button4][self.correct_answer]
+        else:
             print(f"Invalid correct_answer index: {self.correct_answer}")
             return
 
         # Color the correct button green
         correct_button.config(bg='green')
 
-        # Check if the selected option is correct
-        is_correct = self.handle_selected_option(selected_option)
-
-        if is_correct:
+        # Check if the selected button is correct or not
+        if selected_option == self.correct_answer:
             self.score += 1
         else:
             # Color the selected wrong answer light pink
@@ -330,50 +329,14 @@ class QuizApp:
 
         # Update the score board
         self.update_score_board()
-
-        # Wait for 1 second and then reset button colors
-        self.root.after(1200, self.reset_button_colors)
-
+        
+        
         # Wait for 1 second and then ask the next question
+        self.root.after(1000, self.reset_button_colors)
+
+        # next question
         count = self.num_questions_var.get()
-        self.root.after(1200, self.ask_questions, int(count))
-
-
-    def select_correct_button(self):
-        buttons = [self.button1, self.button2, self.button3, self.button4]
-        try:
-            return buttons[self.correct_answer]
-        except IndexError:
-            print(f"Invalid correct_answer index: {self.correct_answer}")
-            return None
-
-    def handle_selected_option(self, selected_option):
-        buttons = [self.button1, self.button2, self.button3, self.button4]
-        try:
-            selected_button = buttons[selected_option]
-            correct_button = self.select_correct_button()
-            
-            if correct_button is None:
-                return False
-            
-            return selected_button == correct_button
-        except IndexError:
-            print(f"Invalid selected option: {selected_option}")
-            return False
-            
-    def handle_selected_option2(self, selected_option):
-        if 0 <= selected_option < self.num_answers:
-            buttons = [self.button1, self.button2, self.button3, self.button4]
-            selected_button = buttons[selected_option]
-            correct_button = self.select_correct_button()
-            
-            if correct_button is None:
-                return False
-            
-            return selected_button == correct_button
-        else:
-            print(f"Invalid selected option: {selected_option}")
-            return False
+        self.root.after(1000, self.ask_questions, int(count))  
 
     def reset_button_colors(self):
         # Reset all button colors
