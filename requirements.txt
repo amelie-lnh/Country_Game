@@ -1,2 +1,2 @@
 pygame == 2.6.1
-pip install pillow
+Pillow == 11.3.0
