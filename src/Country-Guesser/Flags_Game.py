@@ -8,6 +8,8 @@ import json
 import sys
 import copy
 
+## install external package
+## pip install pillow
 
 # Directory containing flag images
 FLAG_DIR = 'flags'
