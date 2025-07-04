@@ -49,6 +49,12 @@ def get_options(correct_name, all_names, n=4):
     return options
 
 # === GAME STATE ===
+question_loaded = False
+code = None
+correct_name = None
+options = []
+correct_index = -1
+
 score = 0
 current = 0
 show_result = False
@@ -90,17 +96,38 @@ while running:
     if current >= NUM_QUESTIONS:
         screen.fill(WHITE)
         draw_text(f"Quiz finished! Score: {score}/{NUM_QUESTIONS}", (200, 300))
+        question_loaded = False
+
+
     else:
-        q = questions[current]
-        code = q["country_code"]
-        correct_name = q["country_name"]
-        options = get_options(correct_name, all_country_names, NUM_ANSWERS)
-        correct_index = options.index(correct_name)
+        if not question_loaded:
+            q = questions[current]
+            code = q["country_code"]
+            correct_name = q["country_name"]
+            options = get_options(correct_name, all_country_names, NUM_ANSWERS)
+            correct_index = options.index(correct_name)
+            question_loaded = True
 
         try:
             flag = load_flag(code)
             flag = pygame.transform.scale(flag, (400, 250))
             screen.blit(flag, (200, 100))
+
+        except:
+            draw_text("Flag not found", (300, 200))
+
+        for i, option in enumerate(options):
+            pygame.draw.rect(screen, feedback_color[i], (100, 400 + i * 50, 600, 40))
+            draw_text(option, (110, 410 + i * 50))
+
+        draw_text(f"Question {current + 1}/{NUM_QUESTIONS}", (10, 10))
+        draw_text(f"Score: {score}", (WIDTH - 150, 10))
+
+        try:
+            flag = load_flag(code)
+            flag = pygame.transform.scale(flag, (400, 250))
+            screen.blit(flag, (200, 100))
+
         except:
             draw_text("Flag not found", (300, 200))
 
