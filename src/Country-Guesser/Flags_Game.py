@@ -1,7 +1,3 @@
-## written by Scott Johnson | @SoftwareNuggets
-## Date written: Sep 10, 2024
-## Learn country flag
-## Youtube :  https://youtube.com/c/softwareNuggets
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -22,7 +18,7 @@ regions = ['Africa', 'Asia', 'Caribbean', 'Europe', 'North America', 'Oceania', 
 class QuizApp:
     def __init__(self, root, data=None):
         self.root = root
-        self.root.title("Country Flag Quiz by @SoftwareNuggets")
+        self.root.title("Country Flag Quiz")
         self.root.geometry("800x700")
         self.root.configure(bg="LightBlue")
 
