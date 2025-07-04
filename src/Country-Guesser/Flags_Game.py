@@ -14,7 +14,7 @@ import copy
 
 
 # Directory containing flag images
-FLAG_DIR = 'country_flags'
+FLAG_DIR = 'flags'
 
 regions = ['Africa', 'Asia', 'Caribbean', 'Europe', 'North America', 'Oceania', 'South America']
 
