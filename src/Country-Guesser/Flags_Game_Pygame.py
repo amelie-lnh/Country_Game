@@ -139,6 +139,6 @@ while running:
         draw_text(f"Score: {score}", (WIDTH - 150, 10))
 
     pygame.display.flip()
-    clock.tick(30)
+    clock.tick(1)
 
 pygame.quit()
