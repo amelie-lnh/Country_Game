@@ -40,7 +40,7 @@ class QuizApp:
         self.button4 = tk.Button(self.root, text="Button 4", width=40, command=lambda: self.check_answer(3))
 
         # Load country data
-        self.file_path = 'AllCountries.json'
+        self.file_path = 'all_countries.json'
         if os.path.exists(self.file_path):
             self.read_json_file(self.file_path)
         else:

@@ -42,7 +42,7 @@ class QuizApp:
         
 
         # Load country data
-        self.file_path = 'AllCountries.json'
+        self.file_path = 'all_countries.json'
         if os.path.exists(self.file_path):
             self.read_json_file(self.file_path)
         else:
