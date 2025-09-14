@@ -5,7 +5,7 @@ import random
 
 # === SETUP ===
 WIDTH, HEIGHT = 800, 600
-WHITE = (255, 255, 255)
+#BACKGROUND_COLOR = (224,255,255)
 GRAY = (230, 230, 230)
 GREEN = (0, 200, 0)
 RED = (200, 0, 0)
@@ -16,6 +16,9 @@ DATA_FILE = "all_countries.json"
 REGION = "Europe"
 NUM_ANSWERS = 4
 NUM_QUESTIONS = 10
+
+background_img = pygame.image.load("background.png")  # replace with your image
+background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -64,7 +67,8 @@ clock = pygame.time.Clock()
 running = True
 
 while running:
-    screen.fill(WHITE)
+    #screen.fill(BACKGROUND_COLOR)
+    screen.blit(background_img, (0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
