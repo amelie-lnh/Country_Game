@@ -39,8 +39,6 @@ state = "menu"  # "menu" or "quiz"
 # Dropdown state
 difficulty_dropdown_open = False
 
-}
-
 # === HELPER FUNCTIONS ===
 def draw_text(text, pos, color=BLACK, center=False):
     label = font.render(text, True, color)
