@@ -1,271 +1,276 @@
 {
-      "country_code": "GA",
-      "country_name": "Gabon"
+  "Hard": [
+  {
+    "country_code": "GA",
+    "country_name": "Gabon"
+  },
+  {
+    "country_code": "MV",
+    "country_name": "Maldives"
+  },
+  {
+    "country_code": "BN",
+    "country_name": "Brunei"
+  },
+  {
+   "country_code": "ET",
+   "country_name": "Ethiopia"
+  },
+  {
+   "country_code": "AD",
+   "country_name": "Andorra"
+  },
+  {
+  "country_code": "AM",
+  "country_name": "Armenia"
+  },
+  {
+  "country_code": "BS",
+  "country_name": "Bahamas"
+  },
+  {
+  "country_code": "FJ",
+  "country_name": "Fiji"
+  },
+{
+  "country_code": "GH",
+  "country_name": "Ghana"
+},
+{
+  "country_code": "LT",
+  "country_name": "Lithuania"
+},
+{
+  "country_code": "MR",
+  "country_name": "Mauritania"
+},
+{
+  "country_code": "MD",
+  "country_name": "Moldova"
+},
+{
+  "country_code": "MN",
+  "country_name": "Mongolia"
+},
+{
+  "country_code": "ME",
+  "country_name": "Montenegro"
+},
+{
+  "country_code": "PY",
+  "country_name": "Paraguay"
     },
 {
-      "country_code": "MV",
-      "country_name": "Maldives"
+  "country_code": "SN",
+  "country_name": "Senegal"
+},
+{
+  "country_code": "TZ",
+  "country_name": "Tanzania"
+},
+{
+  "country_code": "AG",
+  "country_name": "Antigua and Barbuda"
+},
+{
+  "country_code": "HT",
+  "country_name": "Haiti"
+},
+{
+  "country_code": "MZ",
+  "country_name": "Mozambique"
+},
+{
+  "country_code": "SS",
+  "country_name": "South Sudan"
+},
+{
+  "country_code": "ZW",
+  "country_name": "Zimbabwe"
+},
+{
+  "country_code": "KI",
+  "country_name": "Kiribati"
+},
+{
+  "country_code": "MW",
+  "country_name": "Malawi"
+},
+{
+  "country_code": "BW",
+  "country_name": "Botswana"
+},
+{
+  "country_code": "KM",
+  "country_name": "Comoros"
+},
+{
+  "country_code": "SV",
+  "country_name": "El Salvador"
+},
+{
+  "country_code": "NI",
+  "country_name": "Nicaragua"
+},
+{
+  "country_code": "SD",
+  "country_name": "Sudan"
+},
+{
+  "country_code": "TJ",
+  "country_name": "Tajikistan"
+},
+{
+  "country_code": "KG",
+  "country_name": "Kyrgyzstan"
+},
+{
+  "country_code": "MH",
+  "country_name": "Marshall Islands"
+},
+{
+  "country_code": "BZ",
+  "country_name": "Belize"
     },
 {
-      "country_code": "BN",
-      "country_name": "Brunei"
-    },
- {
-      "country_code": "ET",
-      "country_name": "Ethiopia"
-    },
- {
-      "country_code": "AD",
-      "country_name": "Andorra"
-    },
+  "country_code": "ER",
+  "country_name": "Eritrea"
+},
 {
-      "country_code": "AM",
-      "country_name": "Armenia"
-    },{
-        "country_code": "BS",
-        "country_name": "Bahamas"
-    },
+  "country_code": "FM",
+  "country_name": "Federated States of Micronesia"
+},
 {
-      "country_code": "FJ",
-      "country_name": "Fiji"
-    },
+  "country_code": "NR",
+  "country_name": "Nauru"
+},
 {
-      "country_code": "GH",
-      "country_name": "Ghana"
-    },
+  "country_code": "BI",
+  "country_name": "Burundi"
+},
 {
-      "country_code": "LT",
-      "country_name": "Lithuania"
-    },
+  "country_code": "CV",
+  "country_name": "Cabo Verde"
+},
 {
-      "country_code": "MR",
-      "country_name": "Mauritania"
-    },
+  "country_code": "DM",
+  "country_name": "Dominica"
+},
 {
-      "country_code": "MD",
-      "country_name": "Moldova"
-    },
+  "country_code": "TL",
+  "country_name": "Timor-Leste"
+},
 {
-      "country_code": "MN",
-      "country_name": "Mongolia"
-    },
+  "country_code": "GY",
+  "country_name": "Guyana"
+},
 {
-      "country_code": "ME",
-      "country_name": "Montenegro"
-    },
+  "country_code": "RW",
+  "country_name": "Rwanda"
+},
 {
-      "country_code": "PY",
-      "country_name": "Paraguay"
-    },
+  "country_code": "WS",
+  "country_name": "Samoa"
+},
 {
-      "country_code": "SN",
-      "country_name": "Senegal"
-    },
+  "country_code": "LC",
+  "country_name": "Saint Lucia"
+},
 {
-      "country_code": "TZ",
-      "country_name": "Tanzania"
-    },
+  "country_code": "DJ",
+  "country_name": "Djibouti"
+},
 {
-        "country_code": "AG",
-        "country_name": "Antigua and Barbuda"
-    },
+  "country_code": "GT",
+  "country_name": "Guatemala"
+},
 {
-        "country_code": "HT",
-        "country_name": "Haiti"
-    },
+  "country_code": "LS",
+  "country_name": "Lesotho"
+},
 {
-      "country_code": "MZ",
-      "country_name": "Mozambique"
-    },
+  "country_code": "ML",
+  "country_name": "Mali"
+},
 {
-      "country_code": "SS",
-      "country_name": "South Sudan"
-    },
+  "country_code": "NA",
+  "country_name": "Namibia"
+},
 {
-      "country_code": "ZW",
-      "country_name": "Zimbabwe"
-    },
+  "country_code": "CD",
+  "country_name": "Democratic Republic of the Congo"
+},
 {
-      "country_code": "KI",
-      "country_name": "Kiribati"
-    },
+  "country_code": "ZM",
+  "country_name": "Zambia"
+},
 {
-      "country_code": "MW",
-      "country_name": "Malawi"
-    },
+  "country_code": "SL",
+  "country_name": "Sierra Leone"
+},
 {
-      "country_code": "BW",
-      "country_name": "Botswana"
-    },
+  "country_code": "TG",
+  "country_name": "Togo"
+},
 {
-      "country_code": "KM",
-      "country_name": "Comoros"
-    },
+  "country_code": "CF",
+  "country_name": "Central African Republic"
+},
 {
-        "country_code": "SV",
-        "country_name": "El Salvador"
-    },
+  "country_code": "SR",
+  "country_name": "Suriname"
+},
 {
-        "country_code": "NI",
-        "country_name": "Nicaragua"
-    },
+  "country_code": "VU",
+  "country_name": "Vanuatu"
+},
 {
-      "country_code": "SD",
-      "country_name": "Sudan"
-    },
+  "country_code": "BJ",
+  "country_name": "Benin"
+},
 {
-      "country_code": "TJ",
-      "country_name": "Tajikistan"
-    },
+  "country_code": "GQ",
+  "country_name": "Equatorial Guinea"
+},
 {
-      "country_code": "KG",
-      "country_name": "Kyrgyzstan"
-    },
+  "country_code": "GD",
+  "country_name": "Grenada"
+},
 {
-      "country_code": "MH",
-      "country_name": "Marshall Islands"
-    },
+  "country_code": "GN",
+  "country_name": "Guinea"
+},
 {
-        "country_code": "BZ",
-        "country_name": "Belize"
-    },
+  "country_code": "MU",
+  "country_name": "Mauritius"
+},
 {
-      "country_code": "ER",
-      "country_name": "Eritrea"
-    },
+  "country_code": "ST",
+  "country_name": "Sao Tome and Principe"
+},
 {
-      "country_code": "FM",
-      "country_name": "Federated States of Micronesia"
-    },
+  "country_code": "VC",
+  "country_name": "Saint Vincent and the Grenadines"
+},
 {
-      "country_code": "NR",
-      "country_name": "Nauru"
-    },
+  "country_code": "TV",
+  "country_name": "Tuvalu"
+},
 {
-      "country_code": "BI",
-      "country_name": "Burundi"
-    },
+  "country_code": "BO",
+  "country_name": "Bolivia"
+},
 {
-      "country_code": "CV",
-      "country_name": "Cabo Verde"
-    },
+  "country_code": "GM",
+  "country_name": "Gambia"
+},
 {
-        "country_code": "DM",
-        "country_name": "Dominica"
-    },
+  "country_code": "GW",
+  "country_name": "Guinea-Bissau"
+},
 {
-      "country_code": "TL",
-      "country_name": "Timor-Leste"
-    },
-{
-      "country_code": "GY",
-      "country_name": "Guyana"
-    },
-{
-      "country_code": "RW",
-      "country_name": "Rwanda"
-    },
-{
-      "country_code": "WS",
-      "country_name": "Samoa"
-    },
-{
-        "country_code": "LC",
-        "country_name": "Saint Lucia"
-    },
-{
-      "country_code": "DJ",
-      "country_name": "Djibouti"
-    },
-{
-        "country_code": "GT",
-        "country_name": "Guatemala"
-    },
-{
-      "country_code": "LS",
-      "country_name": "Lesotho"
-    },
-{
-      "country_code": "ML",
-      "country_name": "Mali"
-    },
-{
-      "country_code": "NA",
-      "country_name": "Namibia"
-    },
-{
-      "country_code": "CD",
-      "country_name": "Democratic Republic of the Congo"
-    },
-{
-      "country_code": "ZM",
-      "country_name": "Zambia"
-    },
-{
-      "country_code": "SL",
-      "country_name": "Sierra Leone"
-    },
-{
-      "country_code": "TG",
-      "country_name": "Togo"
-    },
-{
-      "country_code": "CF",
-      "country_name": "Central African Republic"
-    },
-{
-      "country_code": "SR",
-      "country_name": "Suriname"
-    },
-{
-      "country_code": "VU",
-      "country_name": "Vanuatu"
-    },
-{
-      "country_code": "BJ",
-      "country_name": "Benin"
-    },
-{
-      "country_code": "GQ",
-      "country_name": "Equatorial Guinea"
-    },
-{
-        "country_code": "GD",
-        "country_name": "Grenada"
-    },
-{
-      "country_code": "GN",
-      "country_name": "Guinea"
-    },
-        {
-      "country_code": "MU",
-      "country_name": "Mauritius"
-    },
-{
-      "country_code": "ST",
-      "country_name": "Sao Tome and Principe"
-    },
-{
-        "country_code": "VC",
-        "country_name": "Saint Vincent and the Grenadines"
-    },
-{
-      "country_code": "TV",
-      "country_name": "Tuvalu"
-    },
-{
-      "country_code": "BO",
-      "country_name": "Bolivia"
-    },
-{
-      "country_code": "GM",
-      "country_name": "Gambia"
-    },
-{
-      "country_code": "GW",
-      "country_name": "Guinea-Bissau"
-    },
-{
-      "country_code": "SB",
-      "country_name": "Solomon Islands"
-    },
+  "country_code": "SB",
+  "country_name": "Solomon Islands"
+},
+  ]
+}
