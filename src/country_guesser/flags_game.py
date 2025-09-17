@@ -14,7 +14,7 @@ RED = (200, 0, 0)
 BLACK = (0, 0, 0)
 FONT_SIZE = 60
 FLAG_DIR = "flags"
-DATA_FILE = "Flag_Images/all_countries.json"
+DATA_FILE = "Flag_Images/Countries_Categorised.json"
 NUM_OPTIONS = 4
 NUM_QUESTIONS = 10
 
