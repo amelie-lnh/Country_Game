@@ -2,10 +2,10 @@ import pygame
 import os
 import json
 import random
+import numpy as np
 
 # === SETTINGS ===
 WIDTH, HEIGHT = 800, 600
-#BG_COLOR = (214, 234, 248)   # Light pastel blue background
 GRAY = (230, 230, 230)
 DARK_GRAY = (180, 180, 180)
 HOVER = (200, 220, 240)
@@ -17,6 +17,7 @@ FLAG_DIR = "flags"
 DATA_FILE = "Flag_Images/Countries_Categorised.json"
 NUM_OPTIONS = 4
 NUM_QUESTIONS = 10
+MAX_LIVES = 3  # <-- NEW: max number of lives
 
 background_img = pygame.image.load("worldmap.png")  # replace with your image
 background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
@@ -30,13 +31,22 @@ font = pygame.font.SysFont(None, FONT_SIZE)
 with open(DATA_FILE, "r", encoding="utf-8") as f:
     all_data = json.load(f)
 
+# === LOAD HEARTS (LIVES) ===
+heart_img = pygame.image.load("heart.png")
+heart_img = pygame.transform.scale(heart_img, (32, 32))
+
+# Create a gray version
+heart_gray = heart_img.copy()
+arr = pygame.surfarray.pixels3d(heart_gray)
+arr[:] = (arr * 0.3).astype('uint8')  # darken
+del arr
+
 # === MENU STATE ===
 game_mode = None
 region = None
 difficulty = None
-state = "menu"  # "menu" or "quiz"
+state = "menu"  # "menu" or "quiz" or "game_over"
 
-# Dropdown state
 difficulty_dropdown_open = False
 
 # === HELPER FUNCTIONS ===
@@ -48,50 +58,48 @@ def draw_text(text, pos, color=BLACK, center=False):
         rect = label.get_rect(topleft=pos)
     screen.blit(label, rect)
 
-
-
 def draw_button(text, rect, selected=False, hover=False, with_arrow=False, open_state=False):
-    # Colors
     base_color = (200, 0, 0)
     hover_color = (72, 118, 255)
     selected_color = (65, 105, 225)
     shadow_color = (50, 50, 50)
 
-    # Background color
     color = selected_color if selected else (hover_color if hover else base_color)
 
-    # Shadow
     shadow_rect = pygame.Rect(rect[0] + 3, rect[1] + 3, rect[2], rect[3])
     pygame.draw.rect(screen, shadow_color, shadow_rect, border_radius=12)
 
-    # Main button
     pygame.draw.rect(screen, color, rect, border_radius=12)
     pygame.draw.rect(screen, (255, 255, 255), rect, 2, border_radius=12)
 
-    # Text
-    button_font = pygame.font.SysFont("arial", 24, bold=True)  # bigger font
+    button_font = pygame.font.SysFont("arial", 24, bold=True)
     label = button_font.render(text, True, (255, 255, 255))
     label_rect = label.get_rect()
 
-    # Center text, leave space if arrow exists
     arrow_offset = 25 if with_arrow else 0
     label_rect.center = (rect[0] + rect[2]//2 - arrow_offset//2, rect[1] + rect[3]//2)
     screen.blit(label, label_rect)
 
-    # Dropdown arrow
     if with_arrow:
         cx = rect[0] + rect[2] - 25
         cy = rect[1] + rect[3] // 2
         if open_state:
-            points = [(cx - 8, cy + 5), (cx + 8, cy + 5), (cx, cy - 5)]  # up ▲
+            points = [(cx - 8, cy + 5), (cx + 8, cy + 5), (cx, cy - 5)]
         else:
-            points = [(cx - 8, cy - 5), (cx + 8, cy - 5), (cx, cy + 5)]  # down ▼
+            points = [(cx - 8, cy - 5), (cx + 8, cy - 5), (cx, cy + 5)]
         pygame.draw.polygon(screen, (255, 255, 255), points)
 
-
+def draw_lives(lives):  # <-- NEW
+    for i in range(MAX_LIVES):
+        x = WIDTH - (i + 1) * 40
+        y = 10
+        if i < lives:
+            screen.blit(heart_img, (x, y))
+        else:
+            screen.blit(heart_gray, (x, y))
 
 def load_flag(country_code):
-    path = os.path.join(FLAG_DIR, f"{country_code.upper()}.png")  # filenames are uppercase
+    path = os.path.join(FLAG_DIR, f"{country_code.upper()}.png")
     return pygame.image.load(path)
 
 def get_options(correct_name, all_names, n=4):
@@ -101,8 +109,7 @@ def get_options(correct_name, all_names, n=4):
     random.shuffle(options)
     return options
 
-# === QUIZ STATE (initialized later) ===
-score = 0
+# === QUIZ STATE ===
 current_question = 0
 feedback_color = [GRAY] * NUM_OPTIONS
 questions = []
@@ -115,6 +122,9 @@ showing_feedback = False
 feedback_start_time = 0
 FEEDBACK_DURATION = 1500
 
+lives = MAX_LIVES  # <-- NEW: start with max lives
+final_score = 0    # <-- NEW: to show when game ends
+
 def load_question(index):
     q = questions[index]
     code = q["country_code"]
@@ -126,7 +136,7 @@ def load_question(index):
 # === MAIN LOOP ===
 clock = pygame.time.Clock()
 running = True
-block_first_click = False  # Prevent first accidental click after starting quiz
+block_first_click = False
 
 while running:
     screen.blit(background_img, (0, 0))
@@ -136,18 +146,14 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        # === MENU HANDLING ===
-        # === MENU HANDLING ===
+        # MENU HANDLING
         if state == "menu" and event.type == pygame.MOUSEBUTTONDOWN:
-            # Game Mode (only Flag Quiz for now)
             if 100 <= mx <= 300 and 100 <= my <= 150:
                 game_mode = "Flag Quiz"
 
-            # Difficulty dropdown toggle
             if 450 <= mx <= 650 and 200 <= my <= 240:
                 difficulty_dropdown_open = not difficulty_dropdown_open
 
-            # Difficulty selection
             if difficulty_dropdown_open:
                 diffs = ["Easy", "Medium", "Hard"]
                 for i, diff in enumerate(diffs):
@@ -155,27 +161,25 @@ while running:
                         difficulty = diff
                         difficulty_dropdown_open = False
 
-            # Start button
             if 300 <= mx <= 500 and 500 <= my <= 550:
                 if game_mode and difficulty:
-                    # Initialize quiz using JSON categories
-                    region_data = all_data[difficulty]  # <-- load by category
+                    region_data = all_data[difficulty]
                     random.shuffle(region_data)
                     questions = region_data[:NUM_QUESTIONS]
                     all_country_names = [c["country_name"] for c in region_data]
-                    score = 0
                     current_question = 0
                     feedback_color = [GRAY] * NUM_OPTIONS
                     code, correct_name, options, correct_index = load_question(current_question)
                     waiting_answer = True
                     showing_feedback = False
+                    lives = MAX_LIVES  # reset lives
+                    final_score = 0
                     state = "quiz"
                     block_first_click = True
 
-        # === QUIZ HANDLING ===
         if state == "quiz" and event.type == pygame.MOUSEBUTTONDOWN:
             if block_first_click:
-                block_first_click = False  # Ignore first click
+                block_first_click = False
             elif waiting_answer:
                 for i in range(NUM_OPTIONS):
                     x = 100
@@ -187,9 +191,10 @@ while running:
                         feedback_start_time = pygame.time.get_ticks()
 
                         if i == correct_index:
-                            score += 1
+                            final_score += 1
                             feedback_color[i] = GREEN
                         else:
+                            lives -= 1  # lose life
                             feedback_color[i] = RED
                             feedback_color[correct_index] = GREEN
 
@@ -197,21 +202,9 @@ while running:
     if state == "menu":
         draw_text("World Quiz Game", (WIDTH//2, 40), BLACK, center=True)
 
-        # Game Mode
         hover = 100 <= mx <= 300 and 100 <= my <= 150
         draw_button("Flag Quiz", (100, 100, 200, 50), selected=(game_mode == "Flag Quiz"), hover=hover)
 
-        # Continent dropdown
-        #hover = 100 <= mx <= 300 and 200 <= my <= 240
-        #draw_button(region if region else "Select Continent", (100, 200, 200, 40),
-                  #  with_arrow=True, open_state=continent_dropdown_open, hover=hover)
-        #if continent_dropdown_open:
-            #regions = list(all_data.keys())
-            #for i, reg in enumerate(regions):
-               # hover = 100 <= mx <= 300 and 240 + i*40 <= my <= 280 + i*40
-                #draw_button(reg, (100, 240 + i*40, 200, 40), selected=(region == reg), hover=hover)
-
-        # Difficulty dropdown
         hover = 450 <= mx <= 650 and 200 <= my <= 240
         draw_button(difficulty if difficulty else "Select Difficulty", (450, 200, 200, 40),
                     with_arrow=True, open_state=difficulty_dropdown_open, hover=hover)
@@ -221,47 +214,25 @@ while running:
                 hover = 450 <= mx <= 650 and 240 + i*40 <= my <= 280 + i*40
                 draw_button(diff, (450, 240 + i*40, 200, 40), selected=(difficulty == diff), hover=hover)
 
-        # Start button
         hover = 300 <= mx <= 500 and 500 <= my <= 550
         draw_button("START", (300, 500, 200, 50), hover=hover)
 
     elif state == "quiz":
-        # Auto move to next question after feedback
         if showing_feedback:
             now = pygame.time.get_ticks()
             if now - feedback_start_time >= FEEDBACK_DURATION:
                 current_question += 1
                 feedback_color = [GRAY] * NUM_OPTIONS
                 showing_feedback = False
-                if current_question < NUM_QUESTIONS:
+                if current_question < NUM_QUESTIONS and lives > 0:
                     code, correct_name, options, correct_index = load_question(current_question)
                     waiting_answer = True
 
-        # End of quiz
-        # End of quiz
-        if current_question >= NUM_QUESTIONS:
-            screen.fill(BG_COLOR)
-            draw_text(f"Quiz finished! Score: {score}/{NUM_QUESTIONS}", (WIDTH // 2, HEIGHT // 2 - 40), BLACK,
-                      center=True)
+        if lives <= 0:  # GAME OVER
+            state = "game_over"
 
-            # Play Again button
-            play_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 40, 200, 60)
-            hover = play_rect.collidepoint(mx, my)
-            draw_button("Play Again", play_rect, hover=hover)
-
-            # Handle click on Play Again
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if play_rect.collidepoint(mx, my):
-                    state = "menu"
-                    game_mode = None
-                    region = None
-                    difficulty = None
-                    current_question = 0
-                    score = 0
-                    feedback_color = [GRAY] * NUM_OPTIONS
-                    waiting_answer = True
-                    showing_feedback = False
-                    block_first_click = False
+        elif current_question >= NUM_QUESTIONS:
+            state = "game_over"
 
         else:
             try:
@@ -276,7 +247,22 @@ while running:
                 draw_text(option, (110, 410 + i * 50))
 
             draw_text(f"Question {current_question + 1}/{NUM_QUESTIONS}", (10, 10))
-            draw_text(f"Score: {score}", (WIDTH - 150, 10))
+            draw_lives(lives)
+
+    elif state == "game_over":
+        draw_text("Game Over!", (WIDTH // 2, HEIGHT // 2 - 60), BLACK, center=True)
+        draw_text(f"Final Score: {final_score}/{NUM_QUESTIONS}", (WIDTH // 2, HEIGHT // 2), BLACK, center=True)
+
+        play_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 60, 200, 60)
+        hover = play_rect.collidepoint(mx, my)
+        draw_button("Play Again", play_rect, hover=hover)
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if play_rect.collidepoint(mx, my):
+                state = "menu"
+                game_mode = None
+                region = None
+                difficulty = None
 
     pygame.display.flip()
     clock.tick(30)
