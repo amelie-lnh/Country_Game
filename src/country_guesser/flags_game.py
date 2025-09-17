@@ -16,7 +16,7 @@ FLAG_DIR = "flags"
 DATA_FILE = "Flag_Images/Countries_Categorised.json"
 NUM_OPTIONS = 4
 NUM_QUESTIONS = 10
-MAX_LIVES = 3  # <-- NEW: max number of lives
+MAX_LIVES = 3
 
 background_img = pygame.image.load("worldmap.png")
 background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
@@ -44,7 +44,7 @@ del arr
 game_mode = None
 region = None
 difficulty = None
-state = "menu"  # "menu" or "quiz" or "game_over"
+state = "menu"
 difficulty_dropdown_open = False
 
 # === HELPER FUNCTIONS ===
@@ -120,8 +120,8 @@ showing_feedback = False
 feedback_start_time = 0
 FEEDBACK_DURATION = 1500
 
-lives = MAX_LIVES  # <-- NEW: start with max lives
-final_score = 0    # <-- NEW: to show when game ends
+lives = MAX_LIVES
+final_score = 0
 
 def load_question(index):
     q = questions[index]
