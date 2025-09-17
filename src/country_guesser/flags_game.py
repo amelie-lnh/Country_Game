@@ -230,14 +230,15 @@ while running:
 
         hover = 300 <= mx <= 500 and 220 <= my <= 260
         draw_button(difficulty if difficulty else "Select Difficulty",
-                    (300, 220, 200, 40), with_arrow=True,
+                    (250, 220, 300, 50),  # wider + taller
+                    with_arrow=True,
                     open_state=difficulty_dropdown_open, hover=hover)
 
         if difficulty_dropdown_open:
             diffs = ["Easy", "Medium", "Hard"]
             for i, diff in enumerate(diffs):
                 hover = 300 <= mx <= 500 and 260 + i * 40 <= my <= 300 + i * 40
-                draw_button(diff, (300, 260 + i * 40, 200, 40),
+                draw_button(diff, (250, 270 + i * 50, 300, 50),
                             selected=(difficulty == diff), hover=hover)
 
         hover = 300 <= mx <= 500 and 500 <= my <= 550
