@@ -12,7 +12,7 @@ HOVER = (200, 220, 240)
 GREEN = (0, 200, 0)
 RED = (200, 0, 0)
 BLACK = (0, 0, 0)
-FONT_SIZE = 60
+FONT_SIZE = 40
 FLAG_DIR = "flags"
 DATA_FILE = "Flag_Images/Countries_Categorised.json"
 NUM_OPTIONS = 4
@@ -44,9 +44,9 @@ def draw_text(text, pos, color=BLACK, center=False):
     label = font.render(text, True, color)
     if center:
         rect = label.get_rect(center=pos)
-        screen.blit(label, rect)
     else:
-        screen.blit(background_img, (0, 0))
+        rect = label.get_rect(topleft=pos)
+    screen.blit(label, rect)
 
 
 
@@ -91,7 +91,7 @@ def draw_button(text, rect, selected=False, hover=False, with_arrow=False, open_
 
 
 def load_flag(country_code):
-    path = os.path.join(FLAG_DIR, f"{country_code.lower()}.png")
+    path = os.path.join(FLAG_DIR, f"{country_code.upper()}.png")  # filenames are uppercase
     return pygame.image.load(path)
 
 def get_options(correct_name, all_names, n=4):
