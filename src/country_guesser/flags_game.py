@@ -179,9 +179,9 @@ while running:
 
             # Start button
             if 300 <= mx <= 500 and 500 <= my <= 550:
-                if game_mode and region and difficulty:
+                if game_mode and difficulty:
                     # Initialize quiz
-                    region_data = all_data[region]
+                    region_data = all_data[difficulty]
                     random.shuffle(region_data)
                     questions = region_data[:NUM_QUESTIONS]
                     all_country_names = [c["country_name"] for c in region_data]
