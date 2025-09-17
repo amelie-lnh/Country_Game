@@ -18,7 +18,7 @@ NUM_OPTIONS = 4
 NUM_QUESTIONS = 10
 MAX_LIVES = 3  # <-- NEW: max number of lives
 
-background_img = pygame.image.load("worldmap.png")  # replace with your image
+background_img = pygame.image.load("worldmap.png")
 background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
 
 pygame.init()
@@ -34,7 +34,7 @@ with open(DATA_FILE, "r", encoding="utf-8") as f:
 heart_img = pygame.image.load("heart.png")
 heart_img = pygame.transform.scale(heart_img, (32, 32))
 
-# Create a gray version
+# Create a gray version of heart
 heart_gray = heart_img.copy()
 arr = pygame.surfarray.pixels3d(heart_gray)
 arr[:] = (arr * 0.3).astype('uint8')  # darken
@@ -45,7 +45,6 @@ game_mode = None
 region = None
 difficulty = None
 state = "menu"  # "menu" or "quiz" or "game_over"
-
 difficulty_dropdown_open = False
 
 # === HELPER FUNCTIONS ===
@@ -131,6 +130,14 @@ def load_question(index):
     opts = get_options(correct_name, all_country_names, NUM_OPTIONS)
     correct_idx = opts.index(correct_name)
     return code, correct_name, opts, correct_idx
+
+def load_capital_question(index, region_data, all_capitals):
+    q = region_data[index]
+    country = q["country_name"]
+    correct = q["capital"]
+    opts = get_options(correct, all_capitals, NUM_OPTIONS)
+    correct_idx = opts.index(correct)
+    return country, correct, opts, correct_idx
 
 # === MAIN LOOP ===
 clock = pygame.time.Clock()
