@@ -37,14 +37,8 @@ difficulty = None
 state = "menu"  # "menu" or "quiz"
 
 # Dropdown state
-#continent_dropdown_open = False
 difficulty_dropdown_open = False
 
-# Difficulty timing
-difficulty_times = {
-    "Easy": 2000,
-    "Medium": 1500,
-    "Hard": 800
 }
 
 # === HELPER FUNCTIONS ===
