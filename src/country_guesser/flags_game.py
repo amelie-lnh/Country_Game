@@ -12,9 +12,9 @@ HOVER = (200, 220, 240)
 GREEN = (0, 200, 0)
 RED = (200, 0, 0)
 BLACK = (0, 0, 0)
-FONT_SIZE = 28
+FONT_SIZE = 60
 FLAG_DIR = "flags"
-DATA_FILE = "all_countries.json"
+DATA_FILE = "Flag_Images/all_countries.json"
 NUM_OPTIONS = 4
 NUM_QUESTIONS = 10
 
@@ -37,7 +37,7 @@ difficulty = None
 state = "menu"  # "menu" or "quiz"
 
 # Dropdown state
-continent_dropdown_open = False
+#continent_dropdown_open = False
 difficulty_dropdown_open = False
 
 # Difficulty timing
@@ -60,7 +60,7 @@ def draw_text(text, pos, color=BLACK, center=False):
 
 def draw_button(text, rect, selected=False, hover=False, with_arrow=False, open_state=False):
     # Colors
-    base_color = (100, 149, 237)   # Cornflower blue
+    base_color = (200, 0, 0)
     hover_color = (72, 118, 255)
     selected_color = (65, 105, 225)
     shadow_color = (50, 50, 50)
@@ -224,14 +224,14 @@ while running:
         draw_button("Flag Quiz", (100, 100, 200, 50), selected=(game_mode == "Flag Quiz"), hover=hover)
 
         # Continent dropdown
-        hover = 100 <= mx <= 300 and 200 <= my <= 240
-        draw_button(region if region else "Select Continent", (100, 200, 200, 40),
-                    with_arrow=True, open_state=continent_dropdown_open, hover=hover)
-        if continent_dropdown_open:
-            regions = list(all_data.keys())
-            for i, reg in enumerate(regions):
-                hover = 100 <= mx <= 300 and 240 + i*40 <= my <= 280 + i*40
-                draw_button(reg, (100, 240 + i*40, 200, 40), selected=(region == reg), hover=hover)
+        #hover = 100 <= mx <= 300 and 200 <= my <= 240
+        #draw_button(region if region else "Select Continent", (100, 200, 200, 40),
+                  #  with_arrow=True, open_state=continent_dropdown_open, hover=hover)
+        #if continent_dropdown_open:
+            #regions = list(all_data.keys())
+            #for i, reg in enumerate(regions):
+               # hover = 100 <= mx <= 300 and 240 + i*40 <= my <= 280 + i*40
+                #draw_button(reg, (100, 240 + i*40, 200, 40), selected=(region == reg), hover=hover)
 
         # Difficulty dropdown
         hover = 450 <= mx <= 650 and 200 <= my <= 240
