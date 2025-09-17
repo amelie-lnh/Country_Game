@@ -2,7 +2,6 @@ import pygame
 import os
 import json
 import random
-import numpy as np
 
 # === SETTINGS ===
 WIDTH, HEIGHT = 800, 600
