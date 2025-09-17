@@ -42,7 +42,6 @@ del arr
 
 # === MENU STATE ===
 game_mode = None
-region = None
 difficulty = None
 state = "menu"
 difficulty_dropdown_open = False
@@ -87,7 +86,7 @@ def draw_button(text, rect, selected=False, hover=False, with_arrow=False, open_
             points = [(cx - 8, cy - 5), (cx + 8, cy - 5), (cx, cy + 5)]
         pygame.draw.polygon(screen, (255, 255, 255), points)
 
-def draw_lives(lives):  # <-- NEW
+def draw_lives(lives):
     for i in range(MAX_LIVES):
         x = WIDTH - (i + 1) * 40
         y = 10
@@ -111,8 +110,7 @@ def get_options(correct_name, all_names, n=4):
 current_question = 0
 feedback_color = [GRAY] * NUM_OPTIONS
 questions = []
-code = ""
-correct_name = ""
+question_text = ""
 options = []
 correct_index = 0
 waiting_answer = True
@@ -124,20 +122,23 @@ lives = MAX_LIVES
 final_score = 0
 
 def load_question(index):
+    global question_text
     q = questions[index]
-    code = q["country_code"]
-    correct_name = q["country_name"]
-    opts = get_options(correct_name, all_country_names, NUM_OPTIONS)
-    correct_idx = opts.index(correct_name)
-    return code, correct_name, opts, correct_idx
-
-def load_capital_question(index, region_data, all_capitals):
-    q = region_data[index]
-    country = q["country_name"]
-    correct = q["capital"]
-    opts = get_options(correct, all_capitals, NUM_OPTIONS)
-    correct_idx = opts.index(correct)
-    return country, correct, opts, correct_idx
+    if game_mode == "Flag Quiz":
+        code = q["country_code"]
+        correct = q["country_name"]
+        opts = get_options(correct, all_country_names, NUM_OPTIONS)
+        correct_idx = opts.index(correct)
+        question_text = "Which country is this flag?"
+        return code, correct, opts, correct_idx
+    elif game_mode == "Capital Quiz":
+        code = q["country_code"]
+        country = q["country_name"]
+        correct = q["capital"]
+        opts = get_options(correct, all_capitals, NUM_OPTIONS)
+        correct_idx = opts.index(correct)
+        question_text = f"What is the capital of {country}?"
+        return code, correct, opts, correct_idx
 
 # === MAIN LOOP ===
 clock = pygame.time.Clock()
@@ -160,7 +161,6 @@ while running:
             if 420 <= mx <= 620 and 120 <= my <= 170:
                 game_mode = "Capital Quiz"
 
-                # Difficulty dropdown
             if 300 <= mx <= 500 and 220 <= my <= 260:
                 difficulty_dropdown_open = not difficulty_dropdown_open
 
@@ -171,13 +171,20 @@ while running:
                         difficulty = diff
                         difficulty_dropdown_open = False
 
-                # Start button
+            # Start button
             if 300 <= mx <= 500 and 500 <= my <= 550:
                 if game_mode and difficulty:
                     region_data = all_data[difficulty]
                     random.shuffle(region_data)
                     questions = region_data[:NUM_QUESTIONS]
-                    all_country_names = [c["country_name"] for c in region_data]
+
+                    if game_mode == "Flag Quiz":
+                        all_country_names = [c["country_name"] for c in region_data]
+                        all_capitals = []
+                    elif game_mode == "Capital Quiz":
+                        all_capitals = [c["capital"] for c in region_data]
+                        all_country_names = []
+
                     current_question = 0
                     feedback_color = [GRAY] * NUM_OPTIONS
                     code, correct_name, options, correct_index = load_question(current_question)
@@ -205,7 +212,7 @@ while running:
                             final_score += 1
                             feedback_color[i] = GREEN
                         else:
-                            lives -= 1  # lose life
+                            lives -= 1
                             feedback_color[i] = RED
                             feedback_color[correct_index] = GREEN
 
@@ -213,16 +220,13 @@ while running:
     if state == "menu":
         draw_text("World Quiz Game", (WIDTH // 2, 40), BLACK, center=True)
 
-
         hover = 200 <= mx <= 400 and 120 <= my <= 170
         draw_button("Flag Quiz", (200, 120, 200, 50),
                     selected=(game_mode == "Flag Quiz"), hover=hover)
 
-
         hover = 420 <= mx <= 620 and 120 <= my <= 170
         draw_button("Capital Quiz", (420, 120, 200, 50),
                     selected=(game_mode == "Capital Quiz"), hover=hover)
-
 
         hover = 300 <= mx <= 500 and 220 <= my <= 260
         draw_button(difficulty if difficulty else "Select Difficulty",
@@ -236,10 +240,8 @@ while running:
                 draw_button(diff, (300, 260 + i * 40, 200, 40),
                             selected=(difficulty == diff), hover=hover)
 
-
         hover = 300 <= mx <= 500 and 500 <= my <= 550
         draw_button("START", (300, 500, 200, 50), hover=hover)
-
 
     elif state == "quiz":
         if showing_feedback:
@@ -252,19 +254,21 @@ while running:
                     code, correct_name, options, correct_index = load_question(current_question)
                     waiting_answer = True
 
-        if lives <= 0:  # GAME OVER
+        if lives <= 0:
             state = "game_over"
-
         elif current_question >= NUM_QUESTIONS:
             state = "game_over"
-
         else:
-            try:
-                flag = load_flag(code)
-                flag = pygame.transform.scale(flag, (400, 250))
-                screen.blit(flag, (200, 100))
-            except:
-                draw_text("Flag not found", (300, 200))
+            if game_mode == "Flag Quiz":
+                try:
+                    flag = load_flag(code)
+                    flag = pygame.transform.scale(flag, (400, 250))
+                    screen.blit(flag, (200, 100))
+                except:
+                    draw_text("Flag not found", (300, 200))
+            elif game_mode == "Capital Quiz":
+                # Soru metnini yazdır
+                draw_text(question_text, (WIDTH // 2, 150), BLACK, center=True)
 
             for i, option in enumerate(options):
                 pygame.draw.rect(screen, feedback_color[i], (100, 400 + i * 50, 600, 40))
@@ -285,7 +289,6 @@ while running:
             if play_rect.collidepoint(mx, my):
                 state = "menu"
                 game_mode = None
-                region = None
                 difficulty = None
 
     pygame.display.flip()
