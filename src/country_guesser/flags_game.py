@@ -145,43 +145,29 @@ while running:
             running = False
 
         # === MENU HANDLING ===
+        # === MENU HANDLING ===
         if state == "menu" and event.type == pygame.MOUSEBUTTONDOWN:
             # Game Mode (only Flag Quiz for now)
             if 100 <= mx <= 300 and 100 <= my <= 150:
                 game_mode = "Flag Quiz"
 
-            # Continent dropdown toggle
-            if 100 <= mx <= 300 and 200 <= my <= 240:
-                continent_dropdown_open = not continent_dropdown_open
-                difficulty_dropdown_open = False
-
             # Difficulty dropdown toggle
             if 450 <= mx <= 650 and 200 <= my <= 240:
                 difficulty_dropdown_open = not difficulty_dropdown_open
-                continent_dropdown_open = False
-
-            # Continent selection
-            if continent_dropdown_open:
-                regions = list(all_data.keys())
-                for i, reg in enumerate(regions):
-                    if 100 <= mx <= 300 and 240 + i*40 <= my <= 280 + i*40:
-                        region = reg
-                        continent_dropdown_open = False
 
             # Difficulty selection
             if difficulty_dropdown_open:
                 diffs = ["Easy", "Medium", "Hard"]
                 for i, diff in enumerate(diffs):
-                    if 450 <= mx <= 650 and 240 + i*40 <= my <= 280 + i*40:
+                    if 450 <= mx <= 650 and 240 + i * 40 <= my <= 280 + i * 40:
                         difficulty = diff
-                        FEEDBACK_DURATION = difficulty_times[diff]
                         difficulty_dropdown_open = False
 
             # Start button
             if 300 <= mx <= 500 and 500 <= my <= 550:
                 if game_mode and difficulty:
-                    # Initialize quiz
-                    region_data = all_data[difficulty]
+                    # Initialize quiz using JSON categories
+                    region_data = all_data[difficulty]  # <-- load by category
                     random.shuffle(region_data)
                     questions = region_data[:NUM_QUESTIONS]
                     all_country_names = [c["country_name"] for c in region_data]
@@ -192,7 +178,7 @@ while running:
                     waiting_answer = True
                     showing_feedback = False
                     state = "quiz"
-                    block_first_click = True  # Block first accidental click
+                    block_first_click = True
 
         # === QUIZ HANDLING ===
         if state == "quiz" and event.type == pygame.MOUSEBUTTONDOWN:
