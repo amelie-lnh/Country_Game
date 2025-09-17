@@ -18,7 +18,7 @@ DATA_FILE = "all_countries.json"
 NUM_OPTIONS = 4
 NUM_QUESTIONS = 10
 
-background_img = pygame.image.load("background.png")  # replace with your image
+background_img = pygame.image.load("worldmap.png")  # replace with your image
 background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
 
 pygame.init()
