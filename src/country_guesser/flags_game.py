@@ -154,19 +154,24 @@ while running:
 
         # MENU HANDLING
         if state == "menu" and event.type == pygame.MOUSEBUTTONDOWN:
-            if 100 <= mx <= 300 and 100 <= my <= 150:
+            if 200 <= mx <= 400 and 120 <= my <= 170:
                 game_mode = "Flag Quiz"
 
-            if 450 <= mx <= 650 and 200 <= my <= 240:
+            if 420 <= mx <= 620 and 120 <= my <= 170:
+                game_mode = "Capital Quiz"
+
+                # Difficulty dropdown
+            if 300 <= mx <= 500 and 220 <= my <= 260:
                 difficulty_dropdown_open = not difficulty_dropdown_open
 
             if difficulty_dropdown_open:
                 diffs = ["Easy", "Medium", "Hard"]
                 for i, diff in enumerate(diffs):
-                    if 450 <= mx <= 650 and 240 + i * 40 <= my <= 280 + i * 40:
+                    if 300 <= mx <= 500 and 260 + i * 40 <= my <= 300 + i * 40:
                         difficulty = diff
                         difficulty_dropdown_open = False
 
+                # Start button
             if 300 <= mx <= 500 and 500 <= my <= 550:
                 if game_mode and difficulty:
                     region_data = all_data[difficulty]
@@ -178,7 +183,7 @@ while running:
                     code, correct_name, options, correct_index = load_question(current_question)
                     waiting_answer = True
                     showing_feedback = False
-                    lives = MAX_LIVES  # reset lives
+                    lives = MAX_LIVES
                     final_score = 0
                     state = "quiz"
                     block_first_click = True
@@ -206,22 +211,35 @@ while running:
 
     # === DRAWING ===
     if state == "menu":
-        draw_text("World Quiz Game", (WIDTH//2, 40), BLACK, center=True)
+        draw_text("World Quiz Game", (WIDTH // 2, 40), BLACK, center=True)
 
-        hover = 100 <= mx <= 300 and 100 <= my <= 150
-        draw_button("Flag Quiz", (100, 100, 200, 50), selected=(game_mode == "Flag Quiz"), hover=hover)
 
-        hover = 450 <= mx <= 650 and 200 <= my <= 240
-        draw_button(difficulty if difficulty else "Select Difficulty", (450, 200, 200, 40),
-                    with_arrow=True, open_state=difficulty_dropdown_open, hover=hover)
+        hover = 200 <= mx <= 400 and 120 <= my <= 170
+        draw_button("Flag Quiz", (200, 120, 200, 50),
+                    selected=(game_mode == "Flag Quiz"), hover=hover)
+
+
+        hover = 420 <= mx <= 620 and 120 <= my <= 170
+        draw_button("Capital Quiz", (420, 120, 200, 50),
+                    selected=(game_mode == "Capital Quiz"), hover=hover)
+
+
+        hover = 300 <= mx <= 500 and 220 <= my <= 260
+        draw_button(difficulty if difficulty else "Select Difficulty",
+                    (300, 220, 200, 40), with_arrow=True,
+                    open_state=difficulty_dropdown_open, hover=hover)
+
         if difficulty_dropdown_open:
             diffs = ["Easy", "Medium", "Hard"]
             for i, diff in enumerate(diffs):
-                hover = 450 <= mx <= 650 and 240 + i*40 <= my <= 280 + i*40
-                draw_button(diff, (450, 240 + i*40, 200, 40), selected=(difficulty == diff), hover=hover)
+                hover = 300 <= mx <= 500 and 260 + i * 40 <= my <= 300 + i * 40
+                draw_button(diff, (300, 260 + i * 40, 200, 40),
+                            selected=(difficulty == diff), hover=hover)
+
 
         hover = 300 <= mx <= 500 and 500 <= my <= 550
         draw_button("START", (300, 500, 200, 50), hover=hover)
+
 
     elif state == "quiz":
         if showing_feedback:
