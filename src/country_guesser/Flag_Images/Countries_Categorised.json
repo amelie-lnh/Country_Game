@@ -447,8 +447,8 @@
       "country_name": "Eswatini"
     },
     {
-        "country_code": "HN",
-        "country_name": "Honduras"
+      "country_code": "HN",
+      "country_name": "Honduras"
     },
     {
       "country_code": "KW",
@@ -495,8 +495,8 @@
       "country_name": "Burkina Faso"
     },
     {
-        "country_code": "TT",
-        "country_name": "Trinidad and Tobago"
+      "country_code": "TT",
+      "country_name": "Trinidad and Tobago"
     },
     {
       "country_code": "UG",
@@ -507,8 +507,8 @@
       "country_name": "Chad"
     },
     {
-        "country_code": "CR",
-        "country_name": "Costa Rica",
+      "country_code": "CR",
+      "country_name": "Costa Rica"
     }
   ],
   "Hard": [
@@ -525,28 +525,28 @@
     "country_name": "Brunei"
   },
   {
-   "country_code": "ET",
-   "country_name": "Ethiopia"
+    "country_code": "ET",
+    "country_name": "Ethiopia"
   },
   {
-   "country_code": "AD",
-   "country_name": "Andorra"
+    "country_code": "AD",
+    "country_name": "Andorra"
   },
   {
-  "country_code": "AM",
-  "country_name": "Armenia"
+    "country_code": "AM",
+    "country_name": "Armenia"
   },
   {
-  "country_code": "BS",
-  "country_name": "Bahamas"
+    "country_code": "BS",
+    "country_name": "Bahamas"
   },
   {
-  "country_code": "FJ",
-  "country_name": "Fiji"
+    "country_code": "FJ",
+    "country_name": "Fiji"
   },
   {
-  "country_code": "GH",
-  "country_name": "Ghana"
+    "country_code": "GH",
+    "country_name": "Ghana"
   },
   {
     "country_code": "LT",
@@ -571,7 +571,7 @@
   {
     "country_code": "PY",
     "country_name": "Paraguay"
-      },
+  },
   {
     "country_code": "SN",
     "country_name": "Senegal"
