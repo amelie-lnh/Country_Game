@@ -35,7 +35,7 @@ heart_img = pygame.transform.scale(heart_img, (32, 32))
 # Create a gray version of heart:
 heart_gray = heart_img.copy()
 arr = pygame.surfarray.pixels3d(heart_gray)
-arr[:] = (arr * 0.3).astype('uint8')  # darken
+arr[:] = (arr * 0.3).astype("uint8")  # darken
 del arr
 
 # Menu state
@@ -43,6 +43,7 @@ game_mode = None
 difficulty = None
 state = "menu"
 difficulty_dropdown_open = False
+
 
 # Helper functions
 def draw_text(text, pos, color=black, center=False):
@@ -54,7 +55,9 @@ def draw_text(text, pos, color=black, center=False):
     screen.blit(label, rect)
 
 
-def draw_button(text, rect, selected=False, hover=False, with_arrow=False, open_state=False):
+def draw_button(
+    text, rect, selected=False, hover=False, with_arrow=False, open_state=False
+):
     base_color = (200, 0, 0)
     hover_color = (72, 118, 255)
     selected_color = (65, 105, 225)
@@ -111,6 +114,7 @@ def get_options(correct_name, all_names, n=4):
     random.shuffle(options)
     return options
 
+
 # Quiz state
 current_question = 0
 feedback_color = [gray] * num_options
@@ -125,6 +129,7 @@ feedback_duration = 1500
 
 lives = max_lives
 final_score = 0
+
 
 def load_question(index):
     global question_text
@@ -144,6 +149,7 @@ def load_question(index):
         correct_idx = opts.index(correct)
         question_text = f"What is the capital of {country}?"
         return code, correct, opts, correct_idx
+
 
 # Main loop
 clock = pygame.time.Clock()
@@ -192,7 +198,9 @@ while running:
 
                     current_question = 0
                     feedback_color = [gray] * num_options
-                    code, correct_name, options, correct_index = load_question(current_question)
+                    code, correct_name, options, correct_index = load_question(
+                        current_question
+                    )
                     waiting_answer = True
                     showing_feedback = False
                     lives = max_lives
@@ -226,24 +234,40 @@ while running:
         draw_text("World Quiz Game", (width // 2, 40), black, center=True)
 
         hover = 200 <= mx <= 400 and 120 <= my <= 170
-        draw_button("Flag Quiz", (200, 120, 200, 50),
-                    selected=(game_mode == "Flag Quiz"), hover=hover)
+        draw_button(
+            "Flag Quiz",
+            (200, 120, 200, 50),
+            selected=(game_mode == "Flag Quiz"),
+            hover=hover,
+        )
 
         hover = 420 <= mx <= 620 and 120 <= my <= 170
-        draw_button("Capital Quiz", (420, 120, 200, 50),
-                    selected=(game_mode == "Capital Quiz"), hover=hover)
+        draw_button(
+            "Capital Quiz",
+            (420, 120, 200, 50),
+            selected=(game_mode == "Capital Quiz"),
+            hover=hover,
+        )
 
         hover = 300 <= mx <= 500 and 220 <= my <= 260
-        draw_button(difficulty if difficulty else "Select Difficulty",
-                    (300, 220, 200, 40), with_arrow=True,
-                    open_state=difficulty_dropdown_open, hover=hover)
+        draw_button(
+            difficulty if difficulty else "Select Difficulty",
+            (300, 220, 200, 40),
+            with_arrow=True,
+            open_state=difficulty_dropdown_open,
+            hover=hover,
+        )
 
         if difficulty_dropdown_open:
             diffs = ["Easy", "Medium", "Hard"]
             for i, diff in enumerate(diffs):
                 hover = 300 <= mx <= 500 and 260 + i * 40 <= my <= 300 + i * 40
-                draw_button(diff, (300, 260 + i * 40, 200, 40),
-                            selected=(difficulty == diff), hover=hover)
+                draw_button(
+                    diff,
+                    (300, 260 + i * 40, 200, 40),
+                    selected=(difficulty == diff),
+                    hover=hover,
+                )
 
         hover = 300 <= mx <= 500 and 500 <= my <= 550
         draw_button("START", (300, 500, 200, 50), hover=hover)
@@ -256,7 +280,9 @@ while running:
                 feedback_color = [gray] * num_options
                 showing_feedback = False
                 if current_question < num_questions and lives > 0:
-                    code, correct_name, options, correct_index = load_question(current_question)
+                    code, correct_name, options, correct_index = load_question(
+                        current_question
+                    )
                     waiting_answer = True
 
         if lives <= 0:
@@ -275,7 +301,9 @@ while running:
                 draw_text(question_text, (width // 2, 150), black, center=True)
 
             for i, option in enumerate(options):
-                pygame.draw.rect(screen, feedback_color[i], (100, 400 + i * 50, 600, 40))
+                pygame.draw.rect(
+                    screen, feedback_color[i], (100, 400 + i * 50, 600, 40)
+                )
                 draw_text(option, (110, 410 + i * 50))
 
             draw_text(f"Question {current_question + 1}/{num_questions}", (10, 10))
@@ -283,7 +311,12 @@ while running:
 
     elif state == "game_over":
         draw_text("Game Over!", (width // 2, height // 2 - 60), black, center=True)
-        draw_text(f"Final Score: {final_score}/{num_questions}", (width // 2, height // 2), black, center=True)
+        draw_text(
+            f"Final Score: {final_score}/{num_questions}",
+            (width // 2, height // 2),
+            black,
+            center=True,
+        )
 
         play_rect = pygame.Rect(width // 2 - 100, height // 2 + 60, 200, 60)
         hover = play_rect.collidepoint(mx, my)
