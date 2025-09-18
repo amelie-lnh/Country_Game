@@ -19,7 +19,7 @@ num_questions = 10
 max_lives = 3
 
 background_img_path = assets_dir / "worldmap.png"
-background_img = pygame.image.load(str(BACKGROUND_IMG_PATH))
+background_img = pygame.image.load(str(background_img_path))
 background_img = pygame.transform.scale(background_img, (width, height))
 
 pygame.init()
