@@ -53,6 +53,7 @@ def draw_text(text, pos, color=black, center=False):
         rect = label.get_rect(topleft=pos)
     screen.blit(label, rect)
 
+
 def draw_button(text, rect, selected=False, hover=False, with_arrow=False, open_state=False):
     base_color = (200, 0, 0)
     hover_color = (72, 118, 255)
@@ -72,7 +73,10 @@ def draw_button(text, rect, selected=False, hover=False, with_arrow=False, open_
     label_rect = label.get_rect()
 
     arrow_offset = 25 if with_arrow else 0
-    label_rect.center = (rect[0] + rect[2]//2 - arrow_offset//2, rect[1] + rect[3]//2)
+    label_rect.center = (
+        rect[0] + rect[2] // 2 - arrow_offset // 2,
+        rect[1] + rect[3] // 2,
+    )
     screen.blit(label, label_rect)
 
     if with_arrow:
@@ -84,6 +88,7 @@ def draw_button(text, rect, selected=False, hover=False, with_arrow=False, open_
             points = [(cx - 8, cy - 5), (cx + 8, cy - 5), (cx, cy + 5)]
         pygame.draw.polygon(screen, (255, 255, 255), points)
 
+
 def draw_lives(lives):
     for i in range(max_lives):
         x = width - (i + 1) * 40
@@ -93,9 +98,11 @@ def draw_lives(lives):
         else:
             screen.blit(heart_gray, (x, y))
 
+
 def load_flag(country_code):
     path = os.path.join(flag_dir, f"{country_code.upper()}.png")
     return pygame.image.load(path)
+
 
 def get_options(correct_name, all_names, n=4):
     options = [correct_name]
