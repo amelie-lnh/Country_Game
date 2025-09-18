@@ -244,7 +244,7 @@ while running:
     elif state == "quiz":
         if showing_feedback:
             now = pygame.time.get_ticks()
-            if now - feedback_start_time >= FEEDBACK_DURATION:
+            if now - feedback_start_time >= feedback_duration:
                 current_question += 1
                 feedback_color = [gray] * num_options
                 showing_feedback = False
