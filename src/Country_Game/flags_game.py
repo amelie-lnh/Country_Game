@@ -18,7 +18,8 @@ num_options = 4
 num_questions = 10
 max_lives = 3
 
-background_img = pygame.image.load("Assets/worldmap.png")
+background_img_path = assets_dir / "worldmap.png"
+background_img = pygame.image.load(str(BACKGROUND_IMG_PATH))
 background_img = pygame.transform.scale(background_img, (width, height))
 
 pygame.init()
@@ -31,7 +32,8 @@ with open(path_file, "r", encoding="utf-8") as f:
     all_data = json.load(f)
 
 # Load hearts (lives)
-heart_img = pygame.image.load("Assets/heart.png")
+heart_img_path = assets_dir / "heart.png"
+heart_img = pygame.image.load(str(heart_img_path))
 heart_img = pygame.transform.scale(heart_img, (32, 32))
 
 # Create a gray version of heart:
