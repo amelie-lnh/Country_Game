@@ -1,6 +1,6 @@
-import pygame
-import os
 import json
+import os
+import pygame
 import random
 
 # === SETTINGS ===
