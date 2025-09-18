@@ -3,7 +3,7 @@ import os
 import pygame
 import random
 
-# === SETTINGS ===
+# Settings
 width, height = 800, 600
 gray = (230, 230, 230)
 green = (0, 200, 0)
@@ -24,27 +24,27 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("World Quiz Game")
 font = pygame.font.SysFont(None, font_size)
 
-# === LOAD DATA ===
+# Load data
 with open(path_file, "r", encoding="utf-8") as f:
     all_data = json.load(f)
 
-# === LOAD HEARTS (LIVES) ===
+# Load hearts (lives)
 heart_img = pygame.image.load("heart.png")
 heart_img = pygame.transform.scale(heart_img, (32, 32))
 
-# Create a gray version of heart
+# Create a gray version of heart:
 heart_gray = heart_img.copy()
 arr = pygame.surfarray.pixels3d(heart_gray)
 arr[:] = (arr * 0.3).astype('uint8')  # darken
 del arr
 
-# === MENU STATE ===
+# Menu state
 game_mode = None
 difficulty = None
 state = "menu"
 difficulty_dropdown_open = False
 
-# === HELPER FUNCTIONS ===
+# Helper functions
 def draw_text(text, pos, color=black, center=False):
     label = font.render(text, True, color)
     if center:
@@ -104,7 +104,7 @@ def get_options(correct_name, all_names, n=4):
     random.shuffle(options)
     return options
 
-# === QUIZ STATE ===
+# Quiz state
 current_question = 0
 feedback_color = [gray] * num_options
 questions = []
@@ -138,7 +138,7 @@ def load_question(index):
         question_text = f"What is the capital of {country}?"
         return code, correct, opts, correct_idx
 
-# === MAIN LOOP ===
+# Main loop
 clock = pygame.time.Clock()
 running = True
 block_first_click = False
@@ -151,7 +151,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        # MENU HANDLING
+        # Menu handling
         if state == "menu" and event.type == pygame.MOUSEBUTTONDOWN:
             if 200 <= mx <= 400 and 120 <= my <= 170:
                 game_mode = "Flag Quiz"
@@ -214,7 +214,7 @@ while running:
                             feedback_color[i] = red
                             feedback_color[correct_index] = green
 
-    # === DRAWING ===
+    # Drawing
     if state == "menu":
         draw_text("World Quiz Game", (width // 2, 40), black, center=True)
 
