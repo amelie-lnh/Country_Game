@@ -295,7 +295,7 @@ while running:
                     flag = load_flag(code)
                     flag = pygame.transform.scale(flag, (400, 250))
                     screen.blit(flag, (200, 100))
-                except:
+                except FileNotFoundError:
                     draw_text("Flag not found", (300, 200))
             elif game_mode == "Capital Quiz":
                 draw_text(question_text, (width // 2, 150), black, center=True)
