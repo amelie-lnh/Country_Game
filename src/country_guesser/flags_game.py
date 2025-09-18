@@ -17,15 +17,15 @@ num_questions = 10
 max_lives = 3
 
 background_img = pygame.image.load("worldmap.png")
-background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
+background_img = pygame.transform.scale(background_img, (width, height))
 
 pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("World Quiz Game")
-font = pygame.font.SysFont(None, FONT_SIZE)
+font = pygame.font.SysFont(None, font_size)
 
 # === LOAD DATA ===
-with open(DATA_FILE, "r", encoding="utf-8") as f:
+with open(path_file, "r", encoding="utf-8") as f:
     all_data = json.load(f)
 
 # === LOAD HEARTS (LIVES) ===
@@ -45,7 +45,7 @@ state = "menu"
 difficulty_dropdown_open = False
 
 # === HELPER FUNCTIONS ===
-def draw_text(text, pos, color=BLACK, center=False):
+def draw_text(text, pos, color=black, center=False):
     label = font.render(text, True, color)
     if center:
         rect = label.get_rect(center=pos)
@@ -85,8 +85,8 @@ def draw_button(text, rect, selected=False, hover=False, with_arrow=False, open_
         pygame.draw.polygon(screen, (255, 255, 255), points)
 
 def draw_lives(lives):
-    for i in range(MAX_LIVES):
-        x = WIDTH - (i + 1) * 40
+    for i in range(max_lives):
+        x = width - (i + 1) * 40
         y = 10
         if i < lives:
             screen.blit(heart_img, (x, y))
@@ -94,7 +94,7 @@ def draw_lives(lives):
             screen.blit(heart_gray, (x, y))
 
 def load_flag(country_code):
-    path = os.path.join(FLAG_DIR, f"{country_code.upper()}.png")
+    path = os.path.join(flag_dir, f"{country_code.upper()}.png")
     return pygame.image.load(path)
 
 def get_options(correct_name, all_names, n=4):
@@ -106,7 +106,7 @@ def get_options(correct_name, all_names, n=4):
 
 # === QUIZ STATE ===
 current_question = 0
-feedback_color = [GRAY] * NUM_OPTIONS
+feedback_color = [gray] * num_options
 questions = []
 question_text = ""
 options = []
@@ -116,7 +116,7 @@ showing_feedback = False
 feedback_start_time = 0
 FEEDBACK_DURATION = 1500
 
-lives = MAX_LIVES
+lives = max_lives
 final_score = 0
 
 def load_question(index):
@@ -125,7 +125,7 @@ def load_question(index):
     if game_mode == "Flag Quiz":
         code = q["country_code"]
         correct = q["country_name"]
-        opts = get_options(correct, all_country_names, NUM_OPTIONS)
+        opts = get_options(correct, all_country_names, num_options)
         correct_idx = opts.index(correct)
         question_text = "Which country is this flag?"
         return code, correct, opts, correct_idx
@@ -133,7 +133,7 @@ def load_question(index):
         code = q["country_code"]
         country = q["country_name"]
         correct = q["capital"]
-        opts = get_options(correct, all_capitals, NUM_OPTIONS)
+        opts = get_options(correct, all_capitals, num_options)
         correct_idx = opts.index(correct)
         question_text = f"What is the capital of {country}?"
         return code, correct, opts, correct_idx
@@ -174,7 +174,7 @@ while running:
                 if game_mode and difficulty:
                     region_data = all_data[difficulty]
                     random.shuffle(region_data)
-                    questions = region_data[:NUM_QUESTIONS]
+                    questions = region_data[:num_questions]
 
                     if game_mode == "Flag Quiz":
                         all_country_names = [c["country_name"] for c in region_data]
@@ -184,11 +184,11 @@ while running:
                         all_country_names = []
 
                     current_question = 0
-                    feedback_color = [GRAY] * NUM_OPTIONS
+                    feedback_color = [gray] * num_options
                     code, correct_name, options, correct_index = load_question(current_question)
                     waiting_answer = True
                     showing_feedback = False
-                    lives = MAX_LIVES
+                    lives = max_lives
                     final_score = 0
                     state = "quiz"
                     block_first_click = True
@@ -197,7 +197,7 @@ while running:
             if block_first_click:
                 block_first_click = False
             elif waiting_answer:
-                for i in range(NUM_OPTIONS):
+                for i in range(num_options):
                     x = 100
                     y = 400 + i * 50
                     w, h = 600, 40
@@ -208,15 +208,15 @@ while running:
 
                         if i == correct_index:
                             final_score += 1
-                            feedback_color[i] = GREEN
+                            feedback_color[i] = green
                         else:
                             lives -= 1
-                            feedback_color[i] = RED
-                            feedback_color[correct_index] = GREEN
+                            feedback_color[i] = red
+                            feedback_color[correct_index] = green
 
     # === DRAWING ===
     if state == "menu":
-        draw_text("World Quiz Game", (WIDTH // 2, 40), BLACK, center=True)
+        draw_text("World Quiz Game", (width // 2, 40), black, center=True)
 
         hover = 200 <= mx <= 400 and 120 <= my <= 170
         draw_button("Flag Quiz", (200, 120, 200, 50),
@@ -246,15 +246,15 @@ while running:
             now = pygame.time.get_ticks()
             if now - feedback_start_time >= FEEDBACK_DURATION:
                 current_question += 1
-                feedback_color = [GRAY] * NUM_OPTIONS
+                feedback_color = [gray] * num_options
                 showing_feedback = False
-                if current_question < NUM_QUESTIONS and lives > 0:
+                if current_question < num_questions and lives > 0:
                     code, correct_name, options, correct_index = load_question(current_question)
                     waiting_answer = True
 
         if lives <= 0:
             state = "game_over"
-        elif current_question >= NUM_QUESTIONS:
+        elif current_question >= num_questions:
             state = "game_over"
         else:
             if game_mode == "Flag Quiz":
@@ -266,20 +266,20 @@ while running:
                     draw_text("Flag not found", (300, 200))
             elif game_mode == "Capital Quiz":
                 # Soru metnini yazdır
-                draw_text(question_text, (WIDTH // 2, 150), BLACK, center=True)
+                draw_text(question_text, (width // 2, 150), black, center=True)
 
             for i, option in enumerate(options):
                 pygame.draw.rect(screen, feedback_color[i], (100, 400 + i * 50, 600, 40))
                 draw_text(option, (110, 410 + i * 50))
 
-            draw_text(f"Question {current_question + 1}/{NUM_QUESTIONS}", (10, 10))
+            draw_text(f"Question {current_question + 1}/{num_questions}", (10, 10))
             draw_lives(lives)
 
     elif state == "game_over":
-        draw_text("Game Over!", (WIDTH // 2, HEIGHT // 2 - 60), BLACK, center=True)
-        draw_text(f"Final Score: {final_score}/{NUM_QUESTIONS}", (WIDTH // 2, HEIGHT // 2), BLACK, center=True)
+        draw_text("Game Over!", (width // 2, height // 2 - 60), black, center=True)
+        draw_text(f"Final Score: {final_score}/{num_questions}", (width // 2, height // 2), black, center=True)
 
-        play_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 60, 200, 60)
+        play_rect = pygame.Rect(width // 2 - 100, height // 2 + 60, 200, 60)
         hover = play_rect.collidepoint(mx, my)
         draw_button("Play Again", play_rect, hover=hover)
 
