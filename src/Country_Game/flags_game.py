@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 import pygame
 import random
 
@@ -10,8 +11,9 @@ green = (0, 200, 0)
 red = (200, 0, 0)
 black = (0, 0, 0)
 font_size = 40
-flag_dir = "Assets/flags_images"
-path_file = "Assets/Capitals_and_Categories.json"
+assets_dir = Path("Assets")
+flag_dir = assets_dir / "flags_images"
+path_file = assets_dir / "Capitals_and_Categories.json"
 num_options = 4
 num_questions = 10
 max_lives = 3
