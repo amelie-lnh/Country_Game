@@ -265,7 +265,6 @@ while running:
                 except:
                     draw_text("Flag not found", (300, 200))
             elif game_mode == "Capital Quiz":
-                # Soru metnini yazdır
                 draw_text(question_text, (width // 2, 150), black, center=True)
 
             for i, option in enumerate(options):
