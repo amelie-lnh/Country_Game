@@ -114,7 +114,7 @@ correct_index = 0
 waiting_answer = True
 showing_feedback = False
 feedback_start_time = 0
-FEEDBACK_DURATION = 1500
+feedback_duration = 1500
 
 lives = max_lives
 final_score = 0
