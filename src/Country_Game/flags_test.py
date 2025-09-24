@@ -1,4 +1,4 @@
-# Test for duplicates insite json file
+# Test for duplicates inside json file
 import json
 from pathlib import Path
 
@@ -51,3 +51,5 @@ def test_country_entries_structure_and_count():
     # Basic sanity check — adjust threshold if you know a different expected size
     assert total >= 150, f"Total countries ({total}) seems too small; check your JSON."
 
+test_json_loads_and_has_difficulties()
+test_country_entries_structure_and_count()
