@@ -24,7 +24,7 @@ background_img = pygame.transform.scale(background_img, (width, height))
 
 pygame.init()
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("World Quiz Game")
+pygame.display.set_caption("Country Game")
 font = pygame.font.SysFont(None, font_size)
 
 # Load data
@@ -248,7 +248,7 @@ while running:
 
     # Drawing
     if state == "menu":
-        draw_text("World Quiz Game", (width // 2, 40), black, center=True)
+        draw_text("Country Game", (width // 2, 40), black, center=True)
 
         # Draw game mode buttons
         hover = 200 <= mx <= 400 and 120 <= my <= 170
