@@ -2,12 +2,12 @@
 import json
 from pathlib import Path
 
-def find_assets_json(file_name="Capitals_and_Categories.json", assets_dir_name="Assets", max_up=5):
+def find_assets_json(file_name="Capitals_and_Categories.json", assets_dir_name="data", max_up=5):
     """
     Search upward from this file's directory to find Assets/Capitals_and_Categories.json.
     Returns a Path if found, else raises FileNotFoundError with helpful message.
     """
-    start = Path(__file__).resolve().parent
+    start = Path(__file__).resolve().parent.parent
     for p in (start, *start.parents[:max_up]):
         candidate = p / assets_dir_name / file_name
         if candidate.exists():
