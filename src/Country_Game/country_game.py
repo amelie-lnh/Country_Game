@@ -170,8 +170,8 @@ running = True
 block_first_click = False
 
 while running:
-    screen.blit(background_img, (0, 0))    #Draw background
-    mx, my = pygame.mouse.get_pos()             #Get mouse position
+    screen.blit(background_img, (0, 0))    # Draw background
+    mx, my = pygame.mouse.get_pos()             # Get mouse position
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -293,7 +293,7 @@ while running:
         hover = 300 <= mx <= 500 and 500 <= my <= 550
         draw_button("START", (300, 500, 200, 50), hover=hover)
 
-    # Feedback timer and move to next question
+    # Move to next question
     elif state == "quiz":
         if showing_feedback:
             now = pygame.time.get_ticks()
